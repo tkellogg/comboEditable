@@ -25,7 +25,7 @@
 		
 		var $ret = $('<div/>');
 		$ret.append('<input type="text" value="' + selectedText + '" />');
-		var $text = $ret.find(':text').css('display','inline');
+		var $text = $ret.find(':text').css({display:'inline', width:this.width()});
 		$ret.append('<div/>');
 		var $button = $ret.find('div').addClass('ui-icon ui-icon-carat-1-s');
 		$button.wrap('<div/>').parent().css({display:'inline'});
@@ -35,12 +35,13 @@
 		$ret.append('<div class="ui-combo-editable-options"/>');
 		var $options = $ret.find('div.ui-combo-editable-options');
 		$options.append(elements);
-		$options.find('div').css({display:'block', cursor:'default'}).mouseenter(function() {
-			$(this).addClass('ui-state-hover');
-		}).mouseout(function() {
-			$(this).removeClass('ui-state-hover');
-		}).css('width', '150px');
-		
+		$options.find('div').css({display:'block', cursor:'default'})
+			.mouseenter(function() {
+				$(this).addClass('ui-state-hover');
+			}).mouseout(function() {
+				$(this).removeClass('ui-state-hover');
+			}).css({ width: this.width() });
+
 		this.replaceWith($ret);
 		return $ret;
 	}
