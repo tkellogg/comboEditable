@@ -5,27 +5,33 @@ Usage
 
 1. Link in jQuery UI CSS, and include scripts for jQuery and comboEditable.js
 
+```
 	<head>
 		<link rel="stylesheet" type="text/css" href="public/style/jquery-ui-1.8.16.custom.css">
 		<script type="text/javascript" src="public/jquery-1.6.2.min.js"></script>
 		<script type="text/javascript" src="public/comboEditable.js"></script>
 	</head>
+```
 
 2. Populate a regular HTML combo box. For ASP.NET, a `asp:DropDownList` works
 
+```
 	<select id="fruit-choices">
 		<option>apples</option>
 		<option>oranges</option>
 		<option>pineapples</option>
 	</select>
+```
 
 3. Create the editable combo box on page load
 
+```
 	<script type="text/javascript">
 		$(function() {
 			$('#fruit-choices').comboEditable();
 		});
 	</script>
+```
 
 
 License
