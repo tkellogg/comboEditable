@@ -3,7 +3,7 @@ In Windows UI design there is a concept of an editable combo box/drop down list.
 Usage
 -----------------
 
-1. Link in jQuery UI CSS, and include scripts for jQuery and comboEditable.js
+Link in jQuery UI CSS, and include scripts for jQuery and comboEditable.js
 
 ```
 	<head>
@@ -13,7 +13,7 @@ Usage
 	</head>
 ```
 
-2. Populate a regular HTML combo box. For ASP.NET, a `asp:DropDownList` works
+Populate a regular HTML combo box. For ASP.NET, a `asp:DropDownList` works
 
 ```
 	<select id="fruit-choices">
@@ -23,7 +23,7 @@ Usage
 	</select>
 ```
 
-3. Create the editable combo box on page load
+Create the editable combo box on page load
 
 ```
 	<script type="text/javascript">
