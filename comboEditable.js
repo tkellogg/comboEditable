@@ -25,16 +25,22 @@
 		
 		var $ret = $('<div/>');
 		$ret.append('<input type="text" value="' + selectedText + '" />');
-		var $text = $ret.find(':text');
+		var $text = $ret.find(':text').css('display','inline');
+		$ret.append('<div/>');
+		var $button = $ret.find('div').addClass('ui-icon ui-icon-carat-1-s');
+		$button.wrap('<div/>').parent().css({display:'inline'});
 		$ret.append('<input type="hidden" value="' + selectedValue + '" name="'+name+'" />');
 		var $value = $ret.find(':hidden');
 
-		$ret.append('<div/>');
-		var $options = $ret.find('div');
+		$ret.append('<div class="ui-combo-editable-options"/>');
+		var $options = $ret.find('div.ui-combo-editable-options');
 		$options.append(elements);
-		$options.find('div').css({'display':'block'}).addClass('ui-state-highlight');
-		$options.attr('width', '150px');
-
+		$options.find('div').css({display:'block', cursor:'default'}).mouseenter(function() {
+			$(this).addClass('ui-state-hover');
+		}).mouseout(function() {
+			$(this).removeClass('ui-state-hover');
+		}).css('width', '150px');
+		
 		this.replaceWith($ret);
 		return $ret;
 	}
