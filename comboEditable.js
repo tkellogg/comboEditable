@@ -30,7 +30,7 @@
 		$textWrap.append('<input type="text" value="' + selectedText + '" />');
 		var $text = $textWrap.find(':text').css({display:'inline', width:this.width()});
 		$textWrap.append('<div/>');
-		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s');
+		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s ui-state-default');
 		$button.wrap('<div/>').parent().css({display:'inline', position:'absolute'});
 		$ret.append('<input type="hidden" value="' + selectedValue + '" name="'+name+'" />');
 		var $value = $ret.find(':hidden');
@@ -51,6 +51,10 @@
 				$options.hide();
 			else
 				$options.show();
+		}).mouseenter(function() {
+			$(this).addClass('ui-state-hover');
+		}).mouseleave(function() {
+			$(this).removeClass('ui-state-hover');
 		});
 		$options.find('div').click(function() {
 			$options.hide();
