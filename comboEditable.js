@@ -45,6 +45,14 @@
 				$(this).removeClass('ui-state-hover');
 			}).css({ width: this.width() });
 
+		$options.hide();
+		$button.click(function() {
+			$options.show();
+		});
+		$options.find('div').click(function() {
+			$options.hide();
+		});
+
 		this.replaceWith($ret);
 		return $ret;
 	}
