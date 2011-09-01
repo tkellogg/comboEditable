@@ -10,7 +10,7 @@
 				selectedText = x.innerHTML;
 			}
 			
-			return '<div data-value="' + x.value + '" ' +
+			return '<div class="ui-state-default" data-value="' + x.value + '" ' +
 				+ (x.selected ? 'selected' : '') + '>' 
 				+ x.innerHTML + '</div>';
 		});
@@ -27,21 +27,21 @@
 		
 		var $textWrap = $ret.append('<div/>').children().first();
 		$textWrap.css({ position: 'relative' });
-		$textWrap.append('<input type="text" value="' + selectedText + '" />');
+		$textWrap.append('<input type="text" value="' + selectedText + '" class="ui-state-default"/>');
 		var $text = $textWrap.find(':text').css({display:'inline', width:this.width()});
 		$textWrap.append('<div/>');
 		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s ui-state-default');
 		$button.wrap('<div/>').parent().css({display:'inline', position:'absolute'});
 		$ret.append('<input type="hidden" value="' + selectedValue + '" name="'+name+'" />');
-		var $value = $ret.find(':hidden');
+		var $value = $ret.find('input[type="hidden"]');
 
 		$ret.append('<div class="ui-combo-editable-options"/>');
 		var $options = $ret.find('div.ui-combo-editable-options');
 		$options.append(elements);
 		$options.find('div').css({display:'block', cursor:'default'})
-			.mouseenter(function() {
+			.hover(function() {
 				$(this).addClass('ui-state-hover');
-			}).mouseout(function() {
+			}, function() {
 				$(this).removeClass('ui-state-hover');
 			}).css({ width: this.width() });
 
@@ -51,13 +51,17 @@
 				$options.hide();
 			else
 				$options.show();
-		}).mouseenter(function() {
+		}).hover(function() {
 			$(this).addClass('ui-state-hover');
-		}).mouseleave(function() {
+		}, function() {
 			$(this).removeClass('ui-state-hover');
 		});
+
+
 		$options.find('div').click(function() {
 			$options.hide();
+			$text.val($(this).text());
+			$value.val($(this).data('data-value'));
 		});
 
 		this.replaceWith($ret);
