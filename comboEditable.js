@@ -47,7 +47,10 @@
 
 		$options.hide();
 		$button.click(function() {
-			$options.show();
+			if ($options.is(':visible'))
+				$options.hide();
+			else
+				$options.show();
 		});
 		$options.find('div').click(function() {
 			$options.hide();
