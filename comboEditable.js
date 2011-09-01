@@ -24,11 +24,14 @@
 		$.each(data, function(i, x) { elements += x; });
 		
 		var $ret = $('<div/>');
-		$ret.append('<input type="text" value="' + selectedText + '" />');
-		var $text = $ret.find(':text').css({display:'inline', width:this.width()});
-		$ret.append('<div/>');
-		var $button = $ret.find('div').addClass('ui-icon ui-icon-carat-1-s');
-		$button.wrap('<div/>').parent().css({display:'inline'});
+		
+		var $textWrap = $ret.append('<div/>').children().first();
+		$textWrap.css({ position: 'relative' });
+		$textWrap.append('<input type="text" value="' + selectedText + '" />');
+		var $text = $textWrap.find(':text').css({display:'inline', width:this.width()});
+		$textWrap.append('<div/>');
+		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s');
+		$button.wrap('<div/>').parent().css({display:'inline', position:'absolute'});
 		$ret.append('<input type="hidden" value="' + selectedValue + '" name="'+name+'" />');
 		var $value = $ret.find(':hidden');
 
