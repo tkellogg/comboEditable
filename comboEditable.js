@@ -27,11 +27,17 @@
 		
 		var $textWrap = $ret.append('<div/>').children().first();
 		$textWrap.css({ position: 'relative' });
-		$textWrap.append('<input type="text" value="' + selectedText + '" class="ui-state-default"/>');
+		$textWrap.append('<input type="text" value="' + selectedText + '" />');
 		var $text = $textWrap.find(':text').css({display:'inline', width:this.width()});
 		$textWrap.append('<div/>');
 		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s ui-state-default');
-		$button.wrap('<div/>').parent().css({display:'inline', position:'absolute'});
+		$button.wrap('<div/>').parent().css(
+			{
+				position:'relative', right:'20px', top:'4px'
+			}).wrap('<div/>').parent().css({
+				display:'inline', position:'absolute' 
+			});	
+
 		$ret.append('<input type="hidden" value="' + selectedValue + '" name="'+name+'" />');
 		var $value = $ret.find('input[type="hidden"]');
 
