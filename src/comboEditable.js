@@ -1,3 +1,11 @@
+/**
+ * @license comboEditable.js
+ * 
+ * Copyright 2011, Tim Kellogg
+ * Dual licensed under the MIT or GPL version 2
+ *
+ * https://github.com/tkellogg/comboEditable
+ */
 (function($) {
 	
 	$.fn.comboEditable = function(opts) {
