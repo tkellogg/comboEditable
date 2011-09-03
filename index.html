@@ -1,0 +1,30 @@
+<html>
+<head>
+	<title>Editable Combo Box</title>
+	<link rel="stylesheet" type="text/css" href="https://raw.github.com/tkellogg/comboEditable/master/test/jquery-ui-1.8.16.custom.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="https://raw.github.com/tkellogg/comboEditable/master/src/comboEditable.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$('#chances').comboEditable();
+	});
+	</script>
+</head>
+<body>
+	<h2><pre>comboEditable</pre> </h2>
+<div id="main">
+	<p>
+		what are the chances that the Jets will the super bowl?
+
+		<select id="chances">
+			<option></option>
+			<option>can monkeys fly?</option>
+			<option>1/10</option>
+			<option>low</option>
+			<option>100%</option>
+		</select>
+	</p>
+	<button onclick="alert($('#chances').val())">Ok</button>
+</div>
+</body>
+</html>
