@@ -30,10 +30,10 @@
 		$textWrap.append('<input type="text" value="' + selectedText + '" />');
 		var $text = $textWrap.find(':text').css({display:'inline', width:this.width()});
 		$textWrap.append('<div/>');
-		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s ui-state-default');
-		$button.wrap('<div/>').parent().css(
+		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s ui-state-default').css({ margin:'1px 1px 1px 1px' });
+		$button.wrap('<div/>').parent().addClass('ui-state-default').css(
 			{
-				position:'relative', right:'20px', top:'4px'
+				position:'relative', top:'2px', right:'1px' 
 			}).wrap('<div/>').parent().css({
 				display:'inline', position:'absolute' 
 			});	
@@ -62,6 +62,8 @@
 		}, function() {
 			$(this).removeClass('ui-state-hover');
 		});
+
+		$ret.blur(function() { $options.hide(); });
 
 
 		$options.find('div').click(function() {
