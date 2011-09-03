@@ -63,8 +63,11 @@
 			$(this).removeClass('ui-state-hover');
 		});
 
-		$ret.blur(function() { $options.hide(); });
-
+		$ret.blur(function() { $options.hide(); }).attr('tabindex', '999').css({outline:'none'});
+		$ret.keyup(function(e) {
+			if (e.which === 27)
+				$options.hide();	
+		});
 
 		$options.find('div').click(function() {
 			$options.hide();
