@@ -75,7 +75,9 @@
 			$value.val($(this).data('data-value'));
 		});
 
+		var id = this.attr('id');
 		this.replaceWith($ret);
+		$text.attr('id', id);
 		return $ret;
 	}
 
