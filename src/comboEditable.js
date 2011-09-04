@@ -7,26 +7,41 @@
  * https://github.com/tkellogg/comboEditable
  */
 (function($) {
-	
-	$.fn.comboEditable = function(opts) {
-		var name = this.attr('name') ? this.attr('name') : '';
-		var selectedValue = undefined, selectedText = undefined;
 
-		var data = $.map(this.find('option'), function(x, i) { 
-			if (x.selected) {
-				selectedValue = x.value;
-				selectedText = x.innerHTML;
+	var ComboBox = function(el) {
+		this.el = el;
+		this.name = el.attr('name') ? el.attr('name') : '';
+		this.selectedValue = null
+		this.selectedText = null;
+	};
+
+	$.extend(ComboBox.prototype, {
+		
+		getOptionValues: function() {
+			var data = $.map(this.el.find('option'), $.proxy(function(x, i) { 
+				if (x.selected) {
+					this.selectedValue = x.value;
+					this.selectedText = x.innerHTML;
+				}
+				
+				return '<div class="ui-state-default" data-value="' + x.value + '" ' +
+					+ (x.selected ? 'selected' : '') + '>' 
+					+ x.innerHTML + '</div>';
+			}, this));
+
+			if (!this.selectedText) {
+				this.selectedValue = this.el.find('option').first().val();
+				this.selectedText = this.el.find('option').first().text();
 			}
-			
-			return '<div class="ui-state-default" data-value="' + x.value + '" ' +
-				+ (x.selected ? 'selected' : '') + '>' 
-				+ x.innerHTML + '</div>';
-		});
 
-		if (!selectedText) {
-			selectedValue = this.find('option').first().val();
-			selectedText = this.find('option').first().text();
+			return data;
 		}
+
+	});
+
+	$.fn.comboEditable = function(opts) {
+		var cb = new ComboBox(this);
+		var data = cb.getOptionValues(this.find('option'));
 
 		var elements = '';
 		$.each(data, function(i, x) { elements += x; });
@@ -35,7 +50,7 @@
 		
 		var $textWrap = $ret.append('<div/>').children().first();
 		$textWrap.css({ position: 'relative' });
-		$textWrap.append('<input type="text" value="' + selectedText + '" />');
+		$textWrap.append('<input type="text" value="' + cb.selectedText + '" />');
 		var $text = $textWrap.find(':text').css({display:'inline', width:this.width()});
 		$textWrap.append('<div/>');
 		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s ui-state-default').css({ margin:'1px 1px 1px 1px' });
@@ -46,7 +61,7 @@
 				display:'inline', position:'absolute' 
 			});	
 
-		$ret.append('<input type="hidden" value="' + selectedValue + '" name="'+name+'" />');
+		$ret.append('<input type="hidden" value="' + cb.selectedValue + '" name="'+name+'" />');
 		var $value = $ret.find('input[type="hidden"]');
 
 		$ret.append('<div class="ui-combo-editable-options"/>');
