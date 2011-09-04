@@ -7,6 +7,7 @@
  * https://github.com/tkellogg/comboEditable
  */
 (function($) {
+	var optionsIdentifierClass = 'ui-combo-editable-options';
 
 	var ComboBox = function(el) {
 		this.el = el;
@@ -74,8 +75,8 @@
 		},
 
 		stylizeOptions: function() {
-			this.$ret.append('<div class="ui-combo-editable-options"/>');
-			var $options = this.$ret.find('div.ui-combo-editable-options');
+			this.$ret.append('<div class="'+optionsIdentifierClass +'"/>');
+			var $options = this.$ret.find('div.'+optionsIdentifierClass+'');
 			$options.append(this.elements);
 			$options.find('div').css({display:'block', cursor:'default'})
 				.hover(function() {
