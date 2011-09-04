@@ -9,16 +9,24 @@
 (function($) {
 	var optionsIdentifierClass = 'ui-combo-editable-options';
 
-	var ComboBox = function(el) {
+	var ComboBox = function(el, opts) {
 		this.el = el;
 		this.name = el.attr('name') ? el.attr('name') : '';
 		this.selectedValue = null
 		this.selectedText = null;
 		this.elements = this.getOptionValues(el.find('option'));
 		this.$ret = $('<div/>');
+		this.opts = this.processOptions(opts, el);
 	};
 
 	$.extend(ComboBox.prototype, {
+		
+		processOptions: function(opts, el) {
+			var ret = {};
+			if (opts && opts.mode === 'text')
+				ret.valueAsText = true;
+			return ret;
+		},
 		
 		getOptionValues: function() {
 			var data = this._mapOptionsToElements();
@@ -119,12 +127,18 @@
 				self.$text.val($(this).text());
 				self.$value.val($(this).data('data-value'));
 			});
+		}, 
+
+		setFormValues: function() {
+			if (this.opts.valueAsText) {
+
+			}
 		}
 
 	});
 
 	$.fn['comboEditable'] = function(opts) {
-		var cb = new ComboBox(this);
+		var cb = new ComboBox(this, opts);
 		cb.makeTextBox();
 		cb.makeIcon();
 		cb.addHiddenField();

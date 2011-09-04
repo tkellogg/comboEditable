@@ -7,24 +7,29 @@
 		$(function() {
 			$('#demo1').comboEditable();
 		});
+		function testClick() {
+			var val = $('#demo1').val();
+			var data = $('input[name="fruit"]').serialize();
+			$('#target').append('<tr><td>' + val + '</td><td>' + data + '</td></tr>');
+		}
 	</script>
 </head>
 <body>
+	<select id="orig">
+		<option>apples</option>
+		<option>oranges</option>
+	</select>
 	<div id="main">
-		<select>
+		<select id="demo1" name="fruit">
 			<option>apples</option>
 			<option>oranges</option>
 		</select>
-		<select id="demo1">
-			<option>apples</option>
-			<option>oranges</option>
-		</select>
-		<button onclick="$('#target').append('<p>'+$('#demo1').val()+'</p>')">
+		<button onclick="testClick()">
 			click me!
 		</button>
 	</div>
-	<div id="target">
+	<table id="target">
 
-	</div>
+	</table>
 </body>
 </html>
