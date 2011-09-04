@@ -14,6 +14,7 @@
 		this.selectedValue = null
 		this.selectedText = null;
 		this.elements = this.getOptionValues(el.find('option'));
+		this.$ret = $('<div/>');
 	};
 
 	$.extend(ComboBox.prototype, {
@@ -43,69 +44,94 @@
 					+ x.innerHTML + '</div>';
 			}, this));
 			return data;
+		},
+
+		makeTextBox: function() {
+			var $textWrap = this.$ret.append('<div/>').children().first();
+			$textWrap.css({ position: 'relative' });
+			$textWrap.append('<input type="text" value="' + this.selectedText + '" />');
+			this.$text = $textWrap.find(':text').css({display:'inline', width:this.el.width()});
+			this.$textWrap = $textWrap;
+		},
+
+		makeIcon: function() {
+			this.$textWrap.append('<div/>');
+			this.$button = this.$textWrap.find('div')
+				.addClass('ui-icon ui-icon-carat-1-s ui-state-default')
+				.css({ margin:'1px 1px 1px 1px' });
+
+			this.$button.wrap('<div/>').parent().addClass('ui-state-default').css(
+				{
+					position:'relative', top:'2px', right:'1px' 
+				}).wrap('<div/>').parent().css({
+					display:'inline', position:'absolute' 
+				});	
+		},
+
+		addHiddenField: function() {
+			this.$ret.append('<input type="hidden" value="' + this.selectedValue + '" name="'+this.name+'" />');
+			this.$value = this.$ret.find('input[type="hidden"]');
+		},
+
+		stylizeOptions: function() {
+			this.$ret.append('<div class="ui-combo-editable-options"/>');
+			var $options = this.$ret.find('div.ui-combo-editable-options');
+			$options.append(this.elements);
+			$options.find('div').css({display:'block', cursor:'default'})
+				.hover(function() {
+					$(this).addClass('ui-state-hover');
+				}, function() {
+					$(this).removeClass('ui-state-hover');
+				}).css({ width: this.el.width() });
+			this.$options = $options;	
+		},
+
+		stylizeIcon: function() {
+			var $ops = this.$options;
+			$ops.hide();
+			this.$button.click(function() {
+				if ($ops.is(':visible'))
+					$ops.hide();
+				else
+					$ops.show();
+			}).hover(function() {
+				$(this).addClass('ui-state-hover');
+			}, function() {
+				$(this).removeClass('ui-state-hover');
+			});
+		},
+
+		wireupHideActions: function() {
+			var $options = this.$options;
+			this.$ret.blur(function() { $options.hide(); }).attr('tabindex', '999').css({outline:'none'});
+			this.$ret.keyup(function(e) {
+				if (e.which === 27)
+					$options.hide();	
+			});
+
+			var self = this;
+			$options.find('div').click(function() {
+				$options.hide();
+				self.$text.val($(this).text());
+				self.$value.val($(this).data('data-value'));
+			});
 		}
 
 	});
 
 	$.fn.comboEditable = function(opts) {
 		var cb = new ComboBox(this);
-		
-		var $ret = $('<div/>');
-		
-		var $textWrap = $ret.append('<div/>').children().first();
-		$textWrap.css({ position: 'relative' });
-		$textWrap.append('<input type="text" value="' + cb.selectedText + '" />');
-		var $text = $textWrap.find(':text').css({display:'inline', width:this.width()});
-		$textWrap.append('<div/>');
-		var $button = $textWrap.find('div').addClass('ui-icon ui-icon-carat-1-s ui-state-default').css({ margin:'1px 1px 1px 1px' });
-		$button.wrap('<div/>').parent().addClass('ui-state-default').css(
-			{
-				position:'relative', top:'2px', right:'1px' 
-			}).wrap('<div/>').parent().css({
-				display:'inline', position:'absolute' 
-			});	
-
-		$ret.append('<input type="hidden" value="' + cb.selectedValue + '" name="'+name+'" />');
-		var $value = $ret.find('input[type="hidden"]');
-
-		$ret.append('<div class="ui-combo-editable-options"/>');
-		var $options = $ret.find('div.ui-combo-editable-options');
-		$options.append(cb.elements);
-		$options.find('div').css({display:'block', cursor:'default'})
-			.hover(function() {
-				$(this).addClass('ui-state-hover');
-			}, function() {
-				$(this).removeClass('ui-state-hover');
-			}).css({ width: this.width() });
-
-		$options.hide();
-		$button.click(function() {
-			if ($options.is(':visible'))
-				$options.hide();
-			else
-				$options.show();
-		}).hover(function() {
-			$(this).addClass('ui-state-hover');
-		}, function() {
-			$(this).removeClass('ui-state-hover');
-		});
-
-		$ret.blur(function() { $options.hide(); }).attr('tabindex', '999').css({outline:'none'});
-		$ret.keyup(function(e) {
-			if (e.which === 27)
-				$options.hide();	
-		});
-
-		$options.find('div').click(function() {
-			$options.hide();
-			$text.val($(this).text());
-			$value.val($(this).data('data-value'));
-		});
+		cb.makeTextBox();
+		cb.makeIcon();
+		cb.addHiddenField();
+		cb.stylizeOptions();
+		cb.stylizeIcon();
+		cb.wireupHideActions();
 
 		var id = this.attr('id');
-		this.replaceWith($ret);
-		$text.attr('id', id);
-		return $ret;
+		this.replaceWith(cb.$ret);
+		cb.$text.attr('id', id);
+		return cb.$ret;
 	}
 
 })(jQuery);
