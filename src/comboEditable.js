@@ -78,7 +78,8 @@
 			this.$ret.append('<div class="'+optionsIdentifierClass +'"/>');
 			var $options = this.$ret.find('div.'+optionsIdentifierClass+'');
 			$options.append(this.elements);
-			$options.find('div').css({display:'block', cursor:'default'})
+			$options.css({ 'z-index':1, position: 'absolute' });
+			$options.find('div').css({display:'block', cursor:'default' })
 				.hover(function() {
 					$(this).addClass('ui-state-hover');
 				}, function() {
@@ -106,6 +107,7 @@
 			var $options = this.$options;
 			this.$ret.blur(function() { $options.hide(); }).attr('tabindex', '999').css({outline:'none'});
 			this.$ret.keyup(function(e) {
+				// if they hit ESC
 				if (e.which === 27)
 					$options.hide();	
 			});
@@ -134,7 +136,5 @@
 		cb.$text.attr('id', id);
 		return cb.$ret;
 	}
-
-	
 
 })(jQuery);
