@@ -13,6 +13,7 @@
 		this.name = el.attr('name') ? el.attr('name') : '';
 		this.selectedValue = null
 		this.selectedText = null;
+		this.elements = this.getOptionValues(el.find('option'));
 	};
 
 	$.extend(ComboBox.prototype, {
@@ -34,17 +35,16 @@
 				this.selectedText = this.el.find('option').first().text();
 			}
 
-			return data;
+			var elements = '';
+			$.each(data, function(i, x) { elements += x; });
+
+			return elements;
 		}
 
 	});
 
 	$.fn.comboEditable = function(opts) {
 		var cb = new ComboBox(this);
-		var data = cb.getOptionValues(this.find('option'));
-
-		var elements = '';
-		$.each(data, function(i, x) { elements += x; });
 		
 		var $ret = $('<div/>');
 		
@@ -66,7 +66,7 @@
 
 		$ret.append('<div class="ui-combo-editable-options"/>');
 		var $options = $ret.find('div.ui-combo-editable-options');
-		$options.append(elements);
+		$options.append(cb.elements);
 		$options.find('div').css({display:'block', cursor:'default'})
 			.hover(function() {
 				$(this).addClass('ui-state-hover');
