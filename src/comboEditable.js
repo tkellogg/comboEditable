@@ -120,7 +120,7 @@
 
 	});
 
-	$.fn.comboEditable = function(opts) {
+	$.fn['comboEditable'] = function(opts) {
 		var cb = new ComboBox(this);
 		cb.makeTextBox();
 		cb.makeIcon();
@@ -134,5 +134,7 @@
 		cb.$text.attr('id', id);
 		return cb.$ret;
 	}
+
+	
 
 })(jQuery);
