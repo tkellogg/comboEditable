@@ -51,7 +51,8 @@
 			var $textWrap = this.$ret.append('<div/>').children().first();
 			$textWrap.css({ position: 'relative' });
 			$textWrap.append('<input type="text" value="' + this.selectedText + '" />');
-			this.$text = $textWrap.find(':text').css({display:'inline', width:this.el.width()});
+			this.$text = $textWrap.find(':text')
+				.css({display:'inline', width:this.el.width() - 20 });
 			this.$textWrap = $textWrap;
 		},
 
