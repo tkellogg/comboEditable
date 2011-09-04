@@ -19,6 +19,19 @@
 	$.extend(ComboBox.prototype, {
 		
 		getOptionValues: function() {
+			var data = this._mapOptionsToElements();
+			if (!this.selectedText) {
+				this.selectedValue = this.el.find('option').first().val();
+				this.selectedText = this.el.find('option').first().text();
+			}
+
+			var elements = '';
+			$.each(data, function(i, x) { elements += x; });
+
+			return elements;
+		},
+
+		_mapOptionsToElements: function() {
 			var data = $.map(this.el.find('option'), $.proxy(function(x, i) { 
 				if (x.selected) {
 					this.selectedValue = x.value;
@@ -29,16 +42,7 @@
 					+ (x.selected ? 'selected' : '') + '>' 
 					+ x.innerHTML + '</div>';
 			}, this));
-
-			if (!this.selectedText) {
-				this.selectedValue = this.el.find('option').first().val();
-				this.selectedText = this.el.find('option').first().text();
-			}
-
-			var elements = '';
-			$.each(data, function(i, x) { elements += x; });
-
-			return elements;
+			return data;
 		}
 
 	});
