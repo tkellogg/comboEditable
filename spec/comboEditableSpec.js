@@ -28,6 +28,20 @@ describe("comboEditable", function() {
 			expect(value.val()).toBeFalsy();
 		});
 
+		it("gives all option divs an attribute called 'data-value' with a numeric value (in this case)", function() {
+			var values = stage.find('.ui-combo-editable-options div');
+			expect(values.size()).toBe(3);
+			values = $.map(values, function(x) { return $(x).attr('data-value'); });
+			expect(values).toEqual(['1', '2', '3']);
+		});
+
+		it("includes a 'text-<name>' value to the form data", function() {
+			stage.find(':text').val('test data').keyup();
+			var result = stage.find('[name="text-test"]');
+			expect(result.size()).toBe(1);
+			expect(result.val()).toBe('test data');
+		});
+
 	});
 
 	afterEach(function() {

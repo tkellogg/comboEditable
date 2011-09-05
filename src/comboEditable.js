@@ -9,14 +9,16 @@
 (function($) {
 	var optionsIdentifierClass = 'ui-combo-editable-options';
 	var nIconAdjustment = 2;
+	var iconAdjustment = '2px';
+	
+	// NOTE: I'm aware that user-agent sniffing is despicable, but how else
+	// can I make these adjustments without seriously kludging the code?
 	if ($.browser.msie) {
 		var iconSize = '22px';
-		var iconAdjustment = '3px';
 		var topAdjustment = '1px';
 	}
 	else {
 		var iconSize = '20px';
-		var iconAdjustment = '2px';
 		var topAdjustment = '2px';
 	}
 
@@ -69,7 +71,7 @@
 		makeTextBox: function() {
 			var $textWrap = this.$ret.append('<div/>').children().first();
 			$textWrap.css({ position: 'relative' });
-			$textWrap.append('<input type="text" value="' + this.selectedText + '" />');
+			$textWrap.append('<input type="text" value="' + this.selectedText + '" name="text-'+this.name+'" />');
 			this.$text = $textWrap.find(':text')
 				.css({display:'inline', width:this.el.width() - 20 });
 			this.$textWrap = $textWrap;
@@ -125,7 +127,7 @@
 
 		wireupHideActions: function() {
 			var $options = this.$options;
-			this.$ret.blur(function() { $options.hide(); }).attr('tabindex', '999').css({outline:'none'});
+			this.$ret.blur(function() { $options.hide(); }).attr('tabindex', '0').css({outline:'none'});
 			this.$ret.keyup(function(e) {
 				// if they hit ESC
 				if (e.which === 27)

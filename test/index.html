@@ -9,7 +9,7 @@
 		});
 		function testClick() {
 			var val = $('#demo1').val();
-			var data = $('input[name="fruit"]').serialize();
+			var data = $('input[name="fruit"],input[type="hidden"]').serialize();
 			$('#target').append('<tr><td>' + val + '</td><td>' + data + '</td></tr>');
 		}
 	</script>
@@ -21,8 +21,8 @@
 	</select>
 	<div id="main">
 		<select id="demo1" name="fruit">
-			<option>apples</option>
-			<option>oranges</option>
+			<option value="1">apples</option>
+			<option value="2">oranges</option>
 		</select>
 		<button onclick="testClick()">
 			click me!
