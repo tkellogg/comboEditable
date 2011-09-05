@@ -6,25 +6,54 @@
 	<script type="text/javascript" src="https://raw.github.com/tkellogg/comboEditable/master/src/comboEditable.js"></script>
 	<script type="text/javascript">
 	$(function() {
-		$('#chances').comboEditable();
+		$('#main td').each(function() {
+			var html = $(this).html();
+			$(this).parent().append('<td/>').find('td:last').text(html).wrapInner('<pre class="brush: html"/>');
+			$(this).find('select').comboEditable();
+		});
 	});
 	</script>
 </head>
 <body>
 	<h2><pre>comboEditable</pre> </h2>
-<div id="main">
-	<p>
-		what are the chances that the Jets will the super bowl?
+	<table id="main">
+		<tr>
+			<td>
+				<form method="post">
+					<p>
+						what are the chances that the Jets will win the super bowl?
 
-		<select id="chances">
-			<option></option>
-			<option>can monkeys fly?</option>
-			<option>1/10</option>
-			<option>low</option>
-			<option>100%</option>
-		</select>
-	</p>
-	<button onclick="alert($('#chances').val())">Ok</button>
+						<select id="chances" name="2nd-chances">
+							<option></option>
+							<option>can monkeys fly?</option>
+							<option>1/10</option>
+							<option>low</option>
+							<option>100%</option>
+						</select>
+					</p>
+				</form>
+				<button onclick="alert($('#chances').parents('form').serialize())">Ok</button>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<form method="post">
+					<p>
+						what are the chances that the Jets will win the super bowl?
+
+						<select id="2nd-chances" name="2nd-chances">
+							<option></option>
+							<option value="1">can monkeys fly?</option>
+							<option value="2">1/10</option>
+							<option value="3">low</option>
+							<option value="4">100%</option>
+						</select>
+					</p>
+				</form>
+				<button onclick="alert($('#2nd-chances').parents('form').serialize())">Ok</button>
+			</td>
+		</tr>
+	</table>	
 </div>
 </body>
 </html>
