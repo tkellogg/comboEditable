@@ -133,6 +133,12 @@
 			if (this.opts.valueAsText) {
 
 			}
+			else {
+				this.$options.find('div').click($.proxy(function(e) {
+					var val = $(e.target).attr('data-value');
+					this.$value.val(val);
+				}, this));
+			}
 		}
 
 	});
@@ -145,6 +151,7 @@
 		cb.stylizeOptions();
 		cb.stylizeIcon();
 		cb.wireupHideActions();
+		cb.setFormValues();
 
 		var id = this.attr('id');
 		this.replaceWith(cb.$ret);
