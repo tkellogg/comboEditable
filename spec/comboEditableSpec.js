@@ -19,13 +19,13 @@ describe("comboEditable", function() {
 		});
 
 		it("sets the :hidden value to the clicked option", function() {
-			var assumtion = stage.find('div[data-value!=""]').last().click();
-			expect(assumtion.size()).toBe(1);
+			stage.find('div[data-value!=""]').last().click();
 			expect(value.val()).toBe('3');
 		});
 
 		it("sets the :hidden value to undefined when typing a new value", function() {
-			
+			stage.find(':text').val('blah').keyup();
+			expect(value.val()).toBeFalsy();
 		});
 
 	});

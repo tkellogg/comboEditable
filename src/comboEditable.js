@@ -134,9 +134,15 @@
 
 			}
 			else {
+				// setup value select for each option
 				this.$options.find('div').click($.proxy(function(e) {
 					var val = $(e.target).attr('data-value');
 					this.$value.val(val);
+				}, this));
+
+				// setup value deselect when typing
+				this.$text.keyup($.proxy(function() {
+					this.$value.val(undefined);
 				}, this));
 			}
 		}
