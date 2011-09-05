@@ -1,5 +1,7 @@
 In Windows UI design there is a concept of an editable combo box/drop down list. However, I haven't been able to find a free version for the web. This editable combo box is a jQuery plugin that degrades nicely into a regular `<select>` element if scripts are not enabled. 
 
+Demo is available here: http://tkellogg.github.com/comboEditable
+
 Usage
 -----------------
 
@@ -30,6 +32,25 @@ $(function() {
 	$('#fruit-choices').comboEditable();
 });
 ```
+
+Compatibility
+-----------------
+
+It has been tested extensively in Chrome and IE9. Both of these are entirely functional but look a little different in each.
+There is no reason why it shouldn't work in FireFox and IE6-8. 
+
+Requirements
+-----------------
+
+To display images and allow customized style, I use jQuery UI CSS classes heavily. If you don't use jQuery UI,
+you can still use this by defining these CSS classes:
+
+* `ui-icon` & `ui-icon-triangle-1-s` - 16x16 px div with a background image (a downward pointing arrow)
+* `ui-corner-right` - rounded corners on the right side of the drop down icon
+* `ui-state-default` - items from the drop down list that are not selected
+* `ui-state-hover` - item from the drop down list that is being hovered over by the mouse
+
+This page of the jQuery UI documentation describes the CSS classes in greater detail: http://jqueryui.com/docs/Theming/API
 
 
 License
