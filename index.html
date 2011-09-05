@@ -1,6 +1,8 @@
 <html>
 <head>
 	<title>Editable Combo Box</title>
+	<link rel="stylesheet" type="text/css" href="lib/shjs-0.6/sh_style.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/shjs-0.6/css/sh_zellner.min.css">
 	<link rel="stylesheet" type="text/css" href="https://raw.github.com/tkellogg/comboEditable/master/test/jquery-ui-1.8.16.custom.css">
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script type="text/javascript" src="https://raw.github.com/tkellogg/comboEditable/master/src/comboEditable.js"></script>
@@ -8,11 +10,14 @@
 	$(function() {
 		$('#main td').each(function() {
 			var html = $(this).html();
-			$(this).parent().append('<td/>').find('td:last').text(html).wrapInner('<pre class="brush: html"/>');
+			$(this).parent().append('<td/>').find('td:last').text(html).wrapInner('<pre class="sh_html"/>');
 			$(this).find('select').comboEditable();
 		});
+		sh_highlightDocument();
 	});
 	</script>
+	<script type="text/javascript" src="lib/shjs-0.6/sh_main.min.js"></script>
+	<script type="text/javascript" src="lib/shjs-0.6/lang/sh_html.min.js"></script>
 </head>
 <body>
 	<h2><pre>comboEditable</pre> </h2>
