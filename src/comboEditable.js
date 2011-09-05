@@ -15,7 +15,7 @@
 		this.selectedValue = null
 		this.selectedText = null;
 		this.elements = this.getOptionValues(el.find('option'));
-		this.$ret = $('<div/>');
+		this.$ret = $('<div/>').css({ 'display': el.css('display'), width: el.width() });
 		this.opts = this.processOptions(opts, el);
 	};
 
