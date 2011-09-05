@@ -67,10 +67,10 @@
 		makeIcon: function() {
 			this.$textWrap.append('<div/>');
 			this.$button = this.$textWrap.find('div')
-				.addClass('ui-icon ui-icon-carat-1-s ui-state-default')
-				.css({ margin:'1px 1px 1px 1px' });
+				.addClass('ui-icon ui-icon-triangle-1-s ui-state-default ui-corner-right')
+				.css({ height:'20px', width:'20px' });
 
-			this.$button.wrap('<div/>').parent().addClass('ui-state-default').css(
+			this.$button.wrap('<div/>').parent().css(
 				{
 					position:'relative', top:'2px', right:'1px' 
 				}).wrap('<div/>').parent().css({
@@ -145,6 +145,15 @@
 					this.$value.val(undefined);
 				}, this));
 			}
+		},
+
+		stretchIcon: function() {
+			var position = this.$button.css('background-position');
+			var re = /(-?\d+)px (-?\d+)px/;
+			var first = parseInt(position.replace(re, '$1'));
+			var second = parseInt(position.replace(re, '$2'));
+			position = '' + (first + 2) + 'px ' + (second + 2) + 'px';
+			this.$button.css('background-position', position);
 		}
 
 	});
@@ -162,6 +171,7 @@
 		var id = this.attr('id');
 		this.replaceWith(cb.$ret);
 		cb.$text.attr('id', id);
+		cb.stretchIcon();
 		return cb.$ret;
 	}
 
