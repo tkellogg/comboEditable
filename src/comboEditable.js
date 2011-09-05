@@ -8,6 +8,17 @@
  */
 (function($) {
 	var optionsIdentifierClass = 'ui-combo-editable-options';
+	var nIconAdjustment = 2;
+	if ($.browser.msie) {
+		var iconSize = '22px';
+		var iconAdjustment = '3px';
+		var topAdjustment = '1px';
+	}
+	else {
+		var iconSize = '20px';
+		var iconAdjustment = '2px';
+		var topAdjustment = '2px';
+	}
 
 	var ComboBox = function(el, opts) {
 		this.el = el;
@@ -68,11 +79,11 @@
 			this.$textWrap.append('<div/>');
 			this.$button = this.$textWrap.find('div')
 				.addClass('ui-icon ui-icon-triangle-1-s ui-state-default ui-corner-right')
-				.css({ height:'20px', width:'20px' });
+				.css({ height:iconSize, width:iconSize });
 
 			this.$button.wrap('<div/>').parent().css(
 				{
-					position:'relative', top:'2px', right:'1px' 
+					position:'relative', top:topAdjustment, right:'1px' 
 				}).wrap('<div/>').parent().css({
 					display:'inline', position:'absolute' 
 				});	
@@ -148,12 +159,17 @@
 		},
 
 		stretchIcon: function() {
-			var position = this.$button.css('background-position');
-			var re = /(-?\d+)px (-?\d+)px/;
-			var first = parseInt(position.replace(re, '$1'));
-			var second = parseInt(position.replace(re, '$2'));
-			position = '' + (first + 2) + 'px ' + (second + 2) + 'px';
-			this.$button.css('background-position', position);
+			var button = this.$button;
+			function resize(p) {
+				var baseProperty = 'background-position-';
+				var position = button.css(baseProperty + p);
+				if (position) {
+					var x = parseInt(position.replace(/(-?\d+)px/, '$1'));
+					button.css(baseProperty + p, (x + nIconAdjustment) + 'px');
+				}
+			};
+			resize('x');
+			resize('y');
 		}
 
 	});
