@@ -1,12 +1,29 @@
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="jquery-ui-1.8.16.custom.css">
+	<link rel="stylesheet" id="style" type="text/css" href="light/jquery-ui.css">
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
 	<script type="text/javascript" src="../src/comboEditable.js"></script>
 	<script type="text/javascript">
+		var styles = ['light', 'mko'];
+
 		$(function() {
 			$('#demo1').comboEditable();
+			for(var i in styles) {
+				var $opt = $('<option/>');
+				$opt.val(styles[i]);
+				$opt.text(styles[i]);
+				$('#style-selector').append($opt);
+			}
+			$('#style-selector').change(function() {
+				setStyle(this.value);
+			});
 		});
+
+		function setStyle(style) {
+			var href = style + '/jquery-ui.css';
+			$('#style').attr('href', href);
+		}
+
 		function testClick() {
 			var val = $('#demo1').val();
 			var data = $('input[name="fruit"],input[type="hidden"]').serialize();
@@ -15,6 +32,11 @@
 	</script>
 </head>
 <body>
+	<p>
+		<select id="style-selector">
+			<option value=""></option>
+		</select>
+	</p>
 	<select id="orig">
 		<option>apples</option>
 		<option>oranges</option>

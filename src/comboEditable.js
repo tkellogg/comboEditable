@@ -71,24 +71,30 @@
 		makeTextBox: function() {
 			var $textWrap = this.$ret.append('<div/>').children().first();
 			$textWrap.css({ position: 'relative' });
-			$textWrap.append('<input type="text" value="' + this.selectedText + '" name="text-'+this.name+'" />');
-			this.$text = $textWrap.find(':text')
+			var $table = $('<table><tr><td/></tr></table>');
+			var $td = $table.find('td');
+			$td.append('<input type="text" value="' + this.selectedText + '" name="text-'+this.name+'" />');
+			this.$text = $td.find(':text')
 				.css({display:'inline', width:this.el.width() - 20 });
+			$textWrap.append($table);
 			this.$textWrap = $textWrap;
 		},
 
 		makeIcon: function() {
 			this.$textWrap.append('<div/>');
-			this.$button = this.$textWrap.find('div')
-				.addClass('ui-icon ui-icon-triangle-1-s ui-state-default ui-corner-right')
+			this.$button = $('<div class="ui-icon ui-icon-triangle-1-s ui-state-default ui-corner-right"/>')
 				.css({ height:iconSize, width:iconSize });
-
+			
+			var $td = $('<td/>').append(this.$button).appendTo(this.$textWrap.find('tr'));
+			this.$textWrap.find('td').css('padding', '0px 0px 0px 0px');
+			/*
 			this.$button.wrap('<div/>').parent().css(
 				{
 					position:'relative', top:topAdjustment, right:'1px' 
 				}).wrap('<div/>').parent().css({
 					display:'inline', position:'absolute' 
 				});	
+				*/
 		},
 
 		addHiddenField: function() {
@@ -173,7 +179,6 @@
 			resize('x');
 			resize('y');
 		}
-
 	});
 
 	$.fn['comboEditable'] = function(opts) {
@@ -189,7 +194,8 @@
 		var id = this.attr('id');
 		this.replaceWith(cb.$ret);
 		cb.$text.attr('id', id);
-		cb.stretchIcon();
+		//cb.stretchIcon();
+		$('.ui-icon-triangle-1-s').css('background-position', '-62px -14px')
 		return cb.$ret;
 	}
 
